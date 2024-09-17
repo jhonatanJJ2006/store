@@ -1,0 +1,116 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.footer {
+    background-color: #333; // Color de fondo moderno
+    color: #fff; // Color de texto blanco para contraste
+
+    &__contenedor {
+        @include m.contenedor();
+    }
+
+    &__block {
+        display: block;
+    }
+
+    &__grid {
+        display: grid;
+        @include m.grid(2, 2rem);
+
+        &--contenido {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 15rem 0rem;
+            gap: 1rem;
+
+            @include m.tablet {
+                padding: 12rem 10rem;   
+            }
+        }
+    }
+
+    &__redes {
+
+        &--enlace {
+            color: #fff; // Color de texto blanco
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: .5rem;
+            padding: 1rem;
+            background: #555; // Color de fondo para enlaces
+            backdrop-filter: blur(1rem);
+            --webkit-backdrop-filter: blur(20rem);
+            border-radius: .5rem;
+            transition: background-color .5s ease-in-out;
+
+            &:hover {
+                background-color: #777; // Color de fondo al pasar el mouse
+                color: #fff; // Color de texto al pasar el mouse
+            }
+        }
+    }
+
+    &__carrito {
+        display: flex;
+        background: #555; // Color de fondo para el carrito
+        backdrop-filter: blur(1rem);
+        --webkit-backdrop-filter: blur(20rem);
+        color: #fff; // Color de texto blanco
+        align-items: center;
+        font-size: 1.6rem;
+        gap: .2rem;
+        padding: 1rem;
+        justify-content: center;
+        border-radius: 2rem;
+        transition: background-color .5s ease-in-out;
+
+        &:hover {
+            background-color: #777; // Color de fondo al pasar el mouse
+            color: #fff; // Color de texto al pasar el mouse
+        }
+    }
+
+    &__sitios {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        padding: 1rem;
+        color: #fff; // Color de texto blanco
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        gap: .2rem;
+
+        @include m.tablet {
+            display: flex;
+        }
+
+        &--actual {
+            color: darken(v.$rosado, 5%);
+        }
+
+        &:hover {
+            color: darken(v.$rosado, 15%);
+        }
+    }
+
+    &__permisos {
+        display: flex;
+        font-size: 1.4rem;
+        color: #fff; // Color de texto blanco
+        padding: 5rem;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    &__enlace {
+        color: #ffd700; // Color dorado para enlaces
+        font-weight: bold;
+
+        &:hover {
+            color: #fff; // Color de texto al pasar el mouse
+        }
+    }
+}

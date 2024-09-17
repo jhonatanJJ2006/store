@@ -1,0 +1,293 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.barra {
+    
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 3rem;
+    gap: 1rem;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    background-color: v.$blanco;
+
+    &__heading {
+        margin: 0;
+
+        @include m.texto-fluido(1rem, 5.8rem);
+    }
+
+    &__comprobar {
+        display: none;
+
+        @include m.tablet {
+            display: block;
+        }
+    }
+
+    &__sitios {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap: 5rem;
+
+        &--gap {
+            display: none;
+
+            @include m.tablet {
+                display: flex;
+                gap: 2rem;
+            }
+        }
+
+        &--enlace {
+            font-weight: v.$bold;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            color: lighten(v.$contraste, 50%);
+            text-align: center;
+            transition: .3s all ease-in-out;
+        
+            &:hover {
+                color: v.$contraste;
+                margin-top: -.5rem;
+            }
+        }
+
+        &--actual {
+            color: v.$contraste;
+        }
+
+        &--footer {
+            display: block;
+            margin-top: 3rem;
+            border-top: 1px solid v.$blanco;
+            border-bottom: 1px solid v.$blanco;
+
+            @include m.tablet {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+
+        
+    }
+    
+    &__acciones {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        &--tamaño {
+            font-size: 1.4rem;
+            padding: 1rem;
+            text-align: center;
+            transition: .3s all ease-in-out;
+
+            &:hover {
+                margin-top: -1rem;
+            }
+        }
+
+        &--eliminar {
+            display: none;
+
+            @include m.tablet {
+                display: block;
+            }
+        }
+    }
+
+    &__logout {
+        color: v.$rojo;
+    }
+
+    &__menu {
+        color: v.$contraste;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__movil {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 50%;
+        height: 100%;
+        background-color: white;
+        z-index: 1000;
+        padding: 2rem 3rem;
+        transition: right .6s ease-in-out; 
+    
+        &--acciones {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+    
+        &--h1 {
+            width: auto;
+        }
+
+        &--h3 {
+            font-size: 2rem;
+            font-weight: v.$bold;
+            margin-top: 5rem;
+        }
+    
+        &--x {
+            display: flex;
+            align-items: center;
+            color: lighten(v.$contraste, 20%);
+    
+            &:hover {
+                color: v.$contraste;
+                cursor: pointer;
+            }
+        }
+
+        &--enlaces {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            padding: 0rem 1rem 0rem 3rem;
+            margin-top: 5rem;
+        }
+
+        &--enlace {
+            text-transform: uppercase;
+            font-weight: v.$bold;
+            font-size: 1.4rem;
+            color: lighten(v.$contraste, 50%);
+            display: flex;
+            justify-content: left;
+            gap: 1rem;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                color: v.$contraste;
+                margin-left: -1rem;
+            }
+        }
+
+        &--actual {
+            color: v.$contraste;
+            margin-left: -1rem;
+        }
+
+        &--auth {
+            margin-top: 10rem;
+            width: 100%;
+            padding: 3rem;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        &--auth-acciones {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+
+            @include m.tablet {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        &--accion {
+            color: v.$contraste;
+            border: 1px solid v.$contraste;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                color: v.$blanco;
+                background-color: v.$contraste;
+            }
+        }
+
+        &--logout {
+            color: v.$rojo;
+            background-color: transparent;
+            border: 1px solid v.$rojo;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                cursor: pointer;
+                background-color: v.$rojo;
+                color: v.$blanco;
+            }
+        }
+    }
+
+    &__activo {
+        right: 0;
+        overflow-y: auto;
+    }
+
+    &__opacidad {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); 
+        z-index: 999; 
+        transition: opacity 1s ease; 
+    }
+    
+}
+
+.no-scroll {
+    overflow: hidden;
+}  
+
+.barra__movil.barra__activo ~ .barra__opacidad {
+    display: block; 
+}
+
+
+/* Estilos para la barra de porcentaje */
+#barraPorcentaje {
+    width: 100%;
+    margin-top: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 5px;
+    background: #ddd;
+    outline: none;
+}
+
+#barraPorcentaje::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #007bff;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+#barraPorcentaje::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #007bff;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* Estilos para mostrar el porcentaje seleccionado */
+#porcentajeSeleccionado {
+    display: flex;
+    justify-content: center;
+    color: v.$verde;
+}

@@ -1,0 +1,70 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.slider-container {
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.slides-of {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide-of {
+    display: block;
+    min-width: 100%;
+    background-color: #e6e4e4;
+    border-radius: 2rem;
+
+    @include m.tablet {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.slide-of-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.slide-of-text {
+    margin-bottom: 10px;
+}
+
+.slide-of-button {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.slide-of-link {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.slide-of-link:hover {
+    background-color: #0056b3;
+}
+
+.slide-of-image {
+    flex: 1;
+    border-radius: 2rem;
+}
+
+.slide-of-image-size {
+    max-width: 100%;
+    height: auto;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+
+    @include m.tablet {
+        border-top-right-radius: 2rem;
+    }
+}

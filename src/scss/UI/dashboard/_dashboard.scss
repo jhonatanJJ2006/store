@@ -1,0 +1,201 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.dashboard {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    padding-top: 12rem;
+
+    &__h1 {
+        display: flex;
+        justify-content: center;
+        font-family: v.$fuente-principal;
+        margin: 0;
+        text-transform: uppercase;
+        margin-top: 3rem;
+        font-size: 3.6rem;
+        font-weight: v.$bold;
+    }
+
+    &__heading {
+        text-align: center;
+        text-transform: capitalize;
+        font-weight: v.$bold;
+        color: v.$contraste;
+        margin: 0;
+        margin-top: 10rem;
+    }
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(30rem, 100%), 1fr));
+        gap: 1rem;
+    }
+
+    &__ventajas {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+
+        @include m.tablet {
+            flex-direction: row;
+            justify-content: space-around;
+            gap: 1rem;
+        }
+
+        &--contenido {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            background-color: v.$contraste;
+            padding: 1rem;
+            border-radius: 2rem;
+            transition: .3s all ease-in-out;
+
+            &:hover {
+                background-color: lighten(v.$contraste, 10%);
+            }
+        }
+
+        &--icono {
+            color: v.$blanco;
+        }
+
+        p {
+            color: v.$blanco;
+        }
+    }
+
+    &__cursos {
+
+        &--producto {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            @include m.tablet {
+                margin-top: 10rem;
+            }
+
+        }
+    }
+
+    &__telefono {
+        color: v.$verde;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        margin: 0rem auto 5rem auto;
+        font-weight: v.$bold;
+
+        &:hover {
+            color: v.$contraste;
+        }
+    }
+
+    &__producto {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        @include m.tablet {
+            @include m.grid(2, 3rem);
+            margin-top: 5rem;
+        }
+
+        &--titulo {
+            padding: 1rem;
+            color: v.$contraste;
+            margin-top: 0;
+        }
+
+        &--categoria {
+            padding: 1rem;
+            border-radius: 1rem;
+            background-color: v.$contraste;
+            color: v.$blanco;
+            font-weight: v.$bold;
+            font-family: v.$fuente-principal;
+            margin: 0 0 3rem 0;
+            border: 1px solid v.$blanco;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                background-color: v.$blanco;
+                color: v.$negro;
+                border: 1px solid v.$negro;
+                cursor: pointer;
+            }
+        }
+
+        &--categoria-d {
+            padding: 1rem;
+            border-radius: 1rem;
+            color: v.$negro;
+            font-weight: v.$bold;
+            font-family: v.$fuente-principal;
+            margin: 0 0 3rem 0;
+            border: 1px solid v.$negro;
+        }
+
+        &--div {
+            padding: 1rem;
+            border-top: 1px solid v.$negro;
+        }
+
+        &--precio {
+            color: v.$verde;
+            display: flex;
+            justify-content: right;
+        }
+
+        &--precio-d {
+            color: v.$gris;
+            text-decoration: line-through;
+            margin: 0;
+        }
+
+        &--precio-t {
+            color: v.$verde;
+            margin: 0;
+        }
+
+        &--descuento {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        &--descuento-d {
+            color: v.$rojo;
+            margin: 0;
+        }
+
+        &--linea {
+            border-bottom: 1px solid v.$negro;
+            margin-bottom: 3rem;
+        }
+    }
+
+    &__admin {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        font-family: "Comfortaa", sans-serif;
+        font-weight: v.$bold;
+        font-size: 5rem;
+        text-transform: uppercase;
+        color: v.$contraste;
+        padding: 1rem;
+        border-bottom: 1px solid v.$negro;
+    }
+}

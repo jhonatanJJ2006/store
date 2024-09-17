@@ -1,0 +1,193 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.carrito {
+
+    &__contenedor {
+        position: relative;
+    }
+
+    &__contador {
+        background-color: v.$rojo;
+        color: v.$blanco;
+        border-radius: 50%;
+        margin: 0;
+        font-size: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-weight: v.$bold;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1; 
+    }
+
+    &__grid {
+        display: block;
+        @include m.contenedor();
+        padding: 1rem;
+        min-height: 30rem;
+
+        @include m.tablet {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+        }
+    }
+
+    &__productos {
+        display: block;
+        border: none;
+        backdrop-filter: blur(1rem);
+        --webkit-backdrop-filter: blur(20rem);
+        padding: 2rem;
+        margin-bottom: 3rem;
+        border-radius: 1rem;
+        background-color: white; 
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        @include m.tablet {
+            margin: 0;
+        }
+    }
+
+    &__tarjeta {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid v.$contraste;
+        gap: 3rem;
+
+        @include m.tablet {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+        }
+
+        &:last-of-type {
+            border: none;
+            margin-bottom: 0;
+        }
+
+        &--posicion {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    &__imagen {
+        width: 15rem;
+        height: 10rem;
+        border-radius: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    &__descripcion {
+        flex: 1;
+        align-items: center;
+        @include m.grid(3,1rem);
+
+        &--caracteristicas {
+            color: v.$blanco;
+            font-size: 1.8rem;
+            font-weight: v.$bold;
+        }
+
+        &--nombre {
+            color: v.$contraste;
+        }
+
+        &--duracion {
+            font-size: 1.6rem;
+            color: v.$gris-claro;
+        }
+
+        &--precio {
+            display: block;
+            text-align: right;
+            color: v.$verde;
+            font-weight: v.$bold;
+            font-size: 1.8rem;
+        }
+
+        &--eliminar {
+            color: v.$rojo;
+            font-size: 1.6rem;
+            font-weight: v.$bold;
+            background-color: transparent;
+            border: none;
+
+            &:hover {
+                cursor: pointer;
+                color: darken(v.$rojo, 20%);
+            }
+        }
+
+        &--centrar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        &--cantidad {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    &__pago {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    &__mas,
+    &__menos,
+    &__cantidad {
+        color: v.$negro;
+        padding: 1rem;
+        background-color: transparent;
+    }
+    
+    &__menos {
+        border: 1px solid v.$negro;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+            color: v.$blanco;
+            background-color: v.$negro;
+            cursor: pointer;
+        }
+    }
+    &__mas {
+        border: 1px solid v.$negro;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+            color: v.$blanco;
+            background-color: v.$negro;
+            cursor: pointer;
+        }
+    }
+    &__cantidad {
+        border-top: 1px solid v.$negro;
+        border-bottom: 1px solid v.$negro;
+        background-color: v.$negro;
+        color: v.$blanco;
+    }
+}
+
