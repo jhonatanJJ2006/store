@@ -4,11 +4,12 @@ namespace Model;
 
 class Producto extends ActiveRecord {
     protected static $tabla = 'productos';
-    protected static $columnasDB = ['id', 'nombre', 'imagen', 'descripcion', 'precio', 'cantidad', 'categoria_id'];
+    protected static $columnasDB = ['id', 'nombre', 'imagen', 'imagenes', 'descripcion', 'precio', 'cantidad', 'categoria_id'];
 
     public $id;
     public $nombre;
     public $imagen;
+    public $imagenes; // Nueva propiedad
     public $descripcion;
     public $precio;
     public $cantidad;
@@ -20,13 +21,14 @@ class Producto extends ActiveRecord {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
+        $this->imagenes = $args['imagenes'] ?? ''; // Nueva línea
         $this->descripcion = $args['descripcion'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->cantidad = $args['cantidad'] ?? '';
         $this->categoria_id = $args['categoria_id'] ?? '';
     }
 
-    // Valigar Categoria
+    // Validar Categoria
     public function validar() {
         if(!$this->nombre) {
             self::$alertas['error'][] = 'El Nombre de la Categoria es Obligatoria';
@@ -36,6 +38,9 @@ class Producto extends ActiveRecord {
         }
         if(!$this->imagen) {
             self::$alertas['error'][] = 'La Imagen es Obligatoria';
+        }
+        if(!$this->imagenes) { // Nueva validación
+            self::$alertas['error'][] = 'Las Imágenes son Obligatorias';
         }
         if(!$this->precio) {
             self::$alertas['error'][] = 'El Precio es Obligatoria';
@@ -47,7 +52,5 @@ class Producto extends ActiveRecord {
             self::$alertas['error'][] = 'La Categoria es Obligatoria';
         }
         return self::$alertas;
-
     }
-
 }

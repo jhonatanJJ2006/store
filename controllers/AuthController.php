@@ -225,8 +225,11 @@ class AuthController {
 
     public static function mensaje(Router $router) {
 
+        $imagenes = ImagenAuth::all();
+
         $router->render('auth/mensaje', [
-            'titulo' => 'Cuenta Creada Exitosamente'
+            'titulo' => 'Cuenta Creada Exitosamente',
+            'imagenes' => $imagenes
         ]);
     }
 

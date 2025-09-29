@@ -1,6 +1,6 @@
 <div class="dashboard__wrapper">
     <?php foreach($ultimosProductos as $ultimo) { ?>
-        <div class="tarjeta">
+        <div class="tarjeta" style="max-width: 20rem;">
             <div class="tarjeta__face tarjeta__front">
                 <picture>
                     <source srcset="<?php echo '/build/img/productos/' . $ultimo->imagen . '.webp'?>" type="image/webp">

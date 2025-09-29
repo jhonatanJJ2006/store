@@ -45,9 +45,8 @@ class ProductosController {
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            
-            // Leer imagen
-            if(!empty($_FILES['imagen']['tmp_name'])) {
+            // Procesar múltiples imágenes
+            if(!empty($_FILES['imagenes']['tmp_name'][0])) {
                 $carpeta_imagenes = '../public/build/img/productos';
 
                 // Crear la carpeta si no existe
@@ -58,27 +57,54 @@ class ProductosController {
                 $anchoDeseado = 800; // Define el ancho deseado
                 $altoDeseado = 600;  // Define el alto deseado
 
-                // Procesar imagen PNG
-                $imagen_png = Image::make($_FILES['imagen']['tmp_name'])
-                                    ->resize($anchoDeseado, $altoDeseado, function ($constraint) {
-                                        $constraint->aspectRatio(); // Mantiene la relación de aspecto
-                                        $constraint->upsize();      // Evita que la imagen sea más grande que el tamaño original
-                                    })
-                                    ->encode('png', 80);
+                $imagenes_procesadas = [];
+                $imagenes_webp = [];
+                $imagenes_png = [];
 
-                // Procesar imagen WebP
-                $imagen_webp = Image::make($_FILES['imagen']['tmp_name'])
-                                    ->resize($anchoDeseado, $altoDeseado, function ($constraint) {
-                                        $constraint->aspectRatio(); // Mantiene la relación de aspecto
-                                        $constraint->upsize();      // Evita que la imagen sea más grande que el tamaño original
-                                    })
-                                    ->encode('webp', 80);
-
+                // Procesar cada imagen
+                $total_imagenes = count($_FILES['imagenes']['tmp_name']);
                 
-                $nombre_imagen = md5(uniqid(rand(), true));
-                
-                $_POST['imagen'] = $nombre_imagen;
+                for($i = 0; $i < $total_imagenes; $i++) {
+                    if($_FILES['imagenes']['error'][$i] === UPLOAD_ERR_OK) {
+                        
+                        // Generar nombre único para cada imagen
+                        $nombre_imagen = md5(uniqid(rand(), true)) . '_' . $i;
+                        
+                        // Procesar imagen PNG
+                        $imagen_png = Image::make($_FILES['imagenes']['tmp_name'][$i])
+                                            ->resize($anchoDeseado, $altoDeseado, function ($constraint) {
+                                                $constraint->aspectRatio(); // Mantiene la relación de aspecto
+                                                $constraint->upsize();      // Evita que la imagen sea más grande que el tamaño original
+                                            })
+                                            ->encode('png', 80);
 
+                        // Procesar imagen WebP
+                        $imagen_webp = Image::make($_FILES['imagenes']['tmp_name'][$i])
+                                            ->resize($anchoDeseado, $altoDeseado, function ($constraint) {
+                                                $constraint->aspectRatio(); // Mantiene la relación de aspecto
+                                                $constraint->upsize();      // Evita que la imagen sea más grande que el tamaño original
+                                            })
+                                            ->encode('webp', 80);
+
+                        // Guardar las imágenes
+                        $imagen_png->save($carpeta_imagenes . '/' . $nombre_imagen . ".png");
+                        $imagen_webp->save($carpeta_imagenes . '/' . $nombre_imagen . ".webp");
+
+                        // Agregar a la lista de imágenes procesadas
+                        $imagenes_procesadas[] = $nombre_imagen;
+                        $imagenes_png[] = $imagen_png;
+                        $imagenes_webp[] = $imagen_webp;
+                    }
+                }
+
+                // Convertir array de nombres a JSON para guardar en BD
+                $_POST['imagenes'] = json_encode($imagenes_procesadas);
+                
+                // Si quieres mantener compatibilidad con el campo 'imagen' original
+                // puedes usar la primera imagen como imagen principal
+                if(!empty($imagenes_procesadas)) {
+                    $_POST['imagen'] = $imagenes_procesadas[0]; // Primera imagen como principal
+                }
             }
 
             $producto->sincronizar($_POST);
@@ -86,14 +112,9 @@ class ProductosController {
             // Validar
             $alertas = $producto->validar();
 
-
             // Guardar el registro
             if(empty($alertas)) {
                 
-                // Guardar las imagenes
-                $imagen_png->save($carpeta_imagenes . '/' . $nombre_imagen . ".png");
-                $imagen_webp->save($carpeta_imagenes . '/' . $nombre_imagen . ".webp");
-
                 // Guardar en la base de datos
                 $resultado = $producto->guardar();
 
